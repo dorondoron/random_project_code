@@ -1,0 +1,84 @@
+#Conky Test Configuration
+
+#Anyone in the world can take this config, it's not special to me at all
+#This was my first config and I wrote it from scratch so there's probably more efficient ways to do some of it
+#Override option was not working for me, it may work for you
+#For some of this stuff to work you may need to install gcalcli and setup the config yourself on that, as well as replace some of the options.
+#
+#Enjoy!!!
+
+alignment top_right                         #<~General location on DE
+
+background no                               #<~Automatically run in the BG
+border_width 0                              #<~Not sure about this yet
+
+cpu_avg_samples 2                           #<~how many samples used to calculate and display computer stats
+update_interval 0.4                         #<~controls how fast the the window is refreshed
+
+default_color 0083ff                        #<~controls default color of objects
+default_outline_color white                 #<~Guess
+default_shade_color white                   #<~Guess
+default_bar_size 4 6                        #<~Used for execpi bars
+#no_buffers yes
+double_buffer yes                           #<~reduces flickering in some cases
+
+#imap gmail.com your.email *             #<~The * prompts for pw at start, more work needed to display desired contents of email though!
+
+draw_borders no                             #<~Draws boarders around the window
+draw_graph_borders yes                     #<~????
+draw_outline no                             #????
+draw_shades no                              #????
+
+minimum_size 5 5                            #<~?????
+
+own_window yes                              #<~Gives a particular object its own window
+own_window_class Conky                      #????
+own_window_type desktop                     #<~Specifys windowing type (default=normal, panel, desktop, and something else i'm not sure of
+#own_window_argb_value                      #<~Not sure what this does exactly, perhaps partial transparency
+own_window_transparent yes                  #<~Now this works =D
+#own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager                   #I have no idea what this does, it's for the override setting, probably exact window specs but it's not working well for me
+
+use_xft yes                                 #<~Uses a font system
+xftfont DejaVu Sans Mono:size=12            #<~Specifys font type and size
+
+gap_x 5                                  #<~Space between the left and right sides of the screen
+gap_y 5                                  #<~Space between the top and bottom of the screen
+#minimum_size 5 5                        #????
+
+#no_buffers yes                          #????
+#out_to_console no                       #Print output to console?
+#out_to_stderr no                        #Print output to stderr?
+extra_newline no                         #????
+
+stippled_borders 0                       #Creates a dashed boarder
+uppercase yes                            #obvious
+use_spacer none                          #resolves object spacing conflicts, collisions
+show_graph_scale no                      #????
+show_graph_range no                      #????
+text_buffer_size 10000                   #<~Perhaps how much text can be printed to the screen
+
+TEXT                                                                                                                                                 #All text meant to be displayed goes under this
+${color white}System Info:$color |${scroll 16 $nodename on Kernal $kernel | Connected to $wireless_essid} |                                          #The linux title at the top
+
+${color white}Uptime:$color $uptime
+${color white}Frequency:$color $freq MHz
+${color white}CPU Usage:$color $cpu% ${cpugraph 10,140 000000 7f8ed3} ${color white}RAM Usage:$color $mem/$memmax - $memperc% ${membar 10,140}        #<~ Cpu and memory graphs and variables
+
+$hr
+${color 00ff78}$alignc Application Information $color
+${color white}Audacious Info:$color | ${scroll 16 ${audacious_title 100}} | ${audacious_bar 8,140}         #For the audacious audio player
+#${color blue}Audacious Info:$color ${audacious_bar 4}                                                     #<~Extra shit for audacious
+#${color blue}Audacious Info:$color $audacious_frequency                                                   
+
+$hr
+$alignc${color 00ff78} Calendars and Schedules $color
+
+${color 00ff78} ${execi 1000 cal -A 2} $color                #<~Perhaps a different arrangment will keep the calendar looking nicely, we'll find out after adjusting some settings.
+${execi 1000 gcalcli --nc calw 3}                            #<~Downloading the latest sources will allow this fucking thing to work!
+
+#Todo list
+#Add weather and weatherforcast
+#Eventually get to some lua magic
+#Can use xmms2 instead of audacious, more command line based stuff but we'll see ;)
+#Add more email scripts and support
+#Encrypted or secure frameworks for password arrangments, hardcoded passwords are not good even though they're not traveling unsecurely across the wire.
